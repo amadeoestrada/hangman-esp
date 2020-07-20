@@ -52,19 +52,20 @@ def play(word):
             break
         print('Adivina la palabra: ' + hyph + '\n')
         tried_char = input('Oportunidades ' + str(6 - tries) + ': ')
+        tried_char2 = tried_char.lower()
         if len(tried_char.rstrip()) < 1:
             print('\nIntroduce una letra\n\n')
             continue
         elif len(tried_char.rstrip()) == 1:
-            if tried_char in word2:
+            if tried_char2 in word2:
                 index_list = []
                 j = 0
                 for c in word2:
-                    if c == tried_char:
+                    if c == tried_char2:
                         index_list.append(j)
                     j += 1
                 for k in index_list:
-                    hyph = hyph[0:k] + tried_char + hyph[k+1:]
+                    hyph = hyph[0:k] + tried_char2 + hyph[k+1:]
                 if hyph == word2:
                     print('\n¡FELICIDADES! Adivinaste la palabra \'', word, '\'\n\n')
                     break
@@ -75,7 +76,7 @@ def play(word):
                 tries += 1
                 continue
         else:
-            if hyph == word2:
+            if tried_char2 == word2:
                 print('\n¡FELICIDADES! Adivinaste la palabra\n\n')
                 break
             else:
