@@ -1,7 +1,7 @@
 """
     Hangman-spa(nish):
     Version 1:
-    This is a hangman game with spanish.
+    This is a hangman game in spanish.
     This hangman uses words fetched from dictionaries at https://github.com/sbosio/rla-es
 """
 __author__ = "Amadeo Estrada"
@@ -17,4 +17,5 @@ def main():
         game_func.play(word)
         cont = game_func.gameover(player)
 
-main()
+if __name__ == '__main__':
+    main()
