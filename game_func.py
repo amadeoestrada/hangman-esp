@@ -38,23 +38,31 @@ def play(word):
     """ This function allows the player to play.
         Firstly, the accents are removed from the word to be guessed. Otherwise
         it would be extremely difficult to guess.
+        Supports full word guesses. Does not support partial word guesses
+        Warns the player about letters he already input.
+        Shows the user how many tries he has left in the game.
     """
     tries = int(0)
     hyph = ''
     word2 = accent_substitution(word)
-    print(word2)
     for c in word:
         hyph += '_'
+    guesses = []
     while True:
         display_hangman(tries)
         if tries > 5:
-            print('\n¡AHORCADO! La palabra correcta era \'', word, '\'\n\n')
+            print('\n¡AHORCADO! La palabra correcta era \'', word, '\'\n')
             break
         print('Adivina la palabra: ' + hyph + '\n')
         tried_char = input('Oportunidades ' + str(6 - tries) + ': ')
         tried_char2 = tried_char.lower()
+        if tried_char in guesses:
+            print('\n¡Ya probaste la letra \'', tried_char, '\'\n')
+            continue
+        else:
+            guesses.append(tried_char)
         if len(tried_char.rstrip()) < 1:
-            print('\nIntroduce una letra\n\n')
+            print('\nIntroduce una letra\n')
             continue
         elif len(tried_char.rstrip()) == 1:
             if tried_char2 in word2:
@@ -65,22 +73,22 @@ def play(word):
                         index_list.append(j)
                     j += 1
                 for k in index_list:
-                    hyph = hyph[0:k] + tried_char2 + hyph[k+1:]
+                    hyph = hyph[0:k] + word[k] + hyph[k+1:]
                 if hyph == word2:
-                    print('\n¡FELICIDADES! Adivinaste la palabra \'', word, '\'\n\n')
+                    print('\n¡FELICIDADES! Adivinaste la palabra \'', word, '\'\n')
                     break
-                print('\nEncontraste una letra.\n\n')
+                print('\nEncontraste una letra.\n')
                 continue
             else:
-                print('\n\'', tried_char, '\' no está en la palabra. Intenta otra vez.\n\n')
+                print('\n\'', tried_char, '\' no está en la palabra. Intenta otra vez.\n')
                 tries += 1
                 continue
         else:
             if tried_char2 == word2:
-                print('\n¡FELICIDADES! Adivinaste la palabra\n\n')
+                print('\n¡FELICIDADES! Adivinaste la palabra\n')
                 break
             else:
-                print('\n\'', tried_char, '\' no es en la palabra correcta. Intenta otra vez.\n\n')
+                print('\n\'', tried_char, '\' no es en la palabra correcta. Intenta otra vez.\n')
                 tries += 1
                 continue
 
